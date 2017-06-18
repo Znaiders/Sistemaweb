@@ -5,37 +5,12 @@
 
 <br><br><br><br><br><br><br><br>
 
+<script src="Myscripts\registroResidente.js" />
+</script>
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     {!!Html::style('css/bootstrap.min.css')!!}
       {!!Html::style('css/EstiloFondo/estilofondo.css')!!}
-
-  <script type="text/javascript">
-function mostrarResidente(){
-document.getElementById('residente').style.display = 'block';
-document.getElementById('empresa').style.display = 'none';
-document.getElementById('proyecto').style.display = 'none';
-
-}
-
-
-function mostrarEmpresa(){
-document.getElementById('empresa').style.display = 'block';
-document.getElementById('residente').style.display = 'none';
-document.getElementById('proyecto').style.display = 'none';
-
-
-}
-
-function mostrarProyecto(){
-document.getElementById('proyecto').style.display = 'block';
-document.getElementById('residente').style.display = 'none';
-document.getElementById('empresa').style.display = 'none';
-
-}
-</script>
-
-
 
 
  <div class="container" style="margin-top: -100px;">
@@ -380,5 +355,7 @@ document.getElementById('empresa').style.display = 'none';
   </ul>
 
 </div>
+
+
 @endif
 @endsection
