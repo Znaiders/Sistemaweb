@@ -1,19 +1,109 @@
 
-@extends('layouts.app')
+<!DOCTYPE html>
+<html lang="{{ config('app.locale') }}">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-@section('content')
+    <!-- CSRF Token -->
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
-<br><br><br><br><br><br><br><br>
+    <title>{{ config('app.name', 'Laravel') }} </title>
 
-<script src="Myscripts\registroResidente.js" />
-</script>
+    <!-- Styles -->
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    {!!Html::style('css/bootstrap.min.css')!!}
+    {!!Html::style('css/EstiloFondo/estilofondo.css')!!}
 
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <!-- Scripts -->
+    <script>
+        window.Laravel = {!! json_encode([
+            'csrfToken' => csrf_token(),
+        ]) !!};
+    </script>
     {!!Html::style('css/bootstrap.min.css')!!}
       {!!Html::style('css/EstiloFondo/estilofondo.css')!!}
+</head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
 
- <div class="container" style="margin-top: -100px;">
+<body>
+
+    <div id="app">
+        <nav class="navbar navbar-default navbar-static-top navbar-inverse">
+            <div class="container">
+                <div class="navbar-header">
+
+                    <!-- Collapsed Hamburger -->
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#app-navbar-collapse">
+                        <span class="sr-only">Toggle Navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+
+                    <!-- Branding Image -->
+                    <a class="navbar-brand " href="{{ url('/') }}">
+                        {{ config('Residencias.name','Residencia Profesional') }}
+                    </a>
+                      <a href="#" onclick="mostrarResidente()" class="navbar-brand">Datos del residente</a>
+                      <a href="#" onclick="mostrarProyecto()"class="navbar-brand">Proyecto</a>
+                      <a href="#"onclick="mostrarEmpresa()" class="navbar-brand">Empresa</a>
+
+
+                </div>
+
+                <div class="collapse navbar-collapse navbar-inverse " id="app-navbar-collapse">
+                    <!-- Left Side Of Navbar -->
+                    <ul class="nav navbar-nav">
+                        &nbsp;
+                    </ul>
+
+                    <!-- Right Side Of Navbar -->
+                    <ul class="nav navbar-nav navbar-right">
+                        <!-- Authentication Links -->
+                        @if (Auth::guest())
+                            <li><a href="{{ route('login') }}">Iniciar sesion</a></li>
+                            <li><a href="{{ route('register') }}">Registrarse</a></li>
+                        @else
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                                    {{ Auth::user()->name }} <span class="caret"></span>
+                                </a>
+
+                                <ul class="dropdown-menu" role="menu">
+                                    <li>
+                                        <a href="{{ route('logout') }}"
+                                            onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                            Logout
+                                        </a>
+
+                                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                            {{ csrf_field() }}
+                                        </form>
+                                    </li>
+                                </ul>
+                            </li>
+                        @endif
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        @yield('content')
+    </div>
+
+
+
+
+
+
+
+<br><br><br><br>
+
+    <div class="container" style="margin-top: -100px;">
 
         <div class="row">
 
@@ -28,11 +118,15 @@
         </div>
      </div>
 
-<div id="residente" style='display:block' >
+    <div id="residente" style='display:block' >
 
-  <!--Residente-->
-<div class="container">
-   <div class="fromResidente">
+
+
+
+
+    <!--Residente-->
+    <div class="container">
+    <div class="fromResidente">
     <div class="title"><h3>Datos del Residente</h3></div>
 
 
@@ -84,29 +178,116 @@
 
 
 
-  </div>
-</div>
-</div>
+    </div>
+    </div>
+    </div>
 
 
 
-  <div class="container ">
+    <div class="container ">
 
-<div id="proyecto" style='display:none'>
-
-<!--Empresa-->
+    <div id="proyecto" style='display:none'>
 
 
-   <div class="fromResidente">
+
+
+            <table class="table">
+      <thead class="thead-inverse">
+      <tr>
+        <th>#</th>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Username</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <th scope="row">1</th>
+        <td>{!!Form::label('Nombre del proyecto:')!!}  </td>
+        <td><div class="form-group">
+        {!!Form::textArea('NombreProyecto',null,['class'=>'form-control input-sm','rows'=>'3','placeholder'=>'Titulo del proyecto'])!!}
+      </div></td>
+        <td><div class="form-group">
+        {!!Form::label('Nombre del proyecto:')!!}
+        {!!Form::textArea('NombreProyecto',null,['class'=>'form-control input-sm','rows'=>'3','placeholder'=>'Titulo del proyecto'])!!}
+      </div></td>
+      </tr>
+      <tr>
+        <th scope="row">2</th>
+        <td>Jacob</td>
+        <td>Thornton</td>
+        <td>@fat</td>
+      </tr>
+      <tr>
+        <th scope="row">3</th>
+        <td>Larry</td>
+        <td>the Bird</td>
+        <td>@twitter</td>
+      </tr>
+      </tbody>
+      </table>
+
+      <table class="table">
+      <thead class="thead-default">
+      <tr>
+        <th>#</th>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Username</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <th scope="row">1</th>
+        <td>Mark</td>
+        <td>Otto</td>
+        <td>@mdo</td>
+      </tr>
+      <tr>
+        <th scope="row">2</th>
+        <td>Jacob</td>
+        <td>Thornton</td>
+        <td>@fat</td>
+      </tr>
+      <tr>
+        <th scope="row">3</th>
+        <td>Larry</td>
+        <td>the Bird</td>
+        <td>@twitter</td>
+      </tr>
+      </tbody>
+      </table>
+
+
+
+
+
+
+
+
+                <!--Probando tabla en boostrap -->
+
+
+
+
+
+
+
+
+
+
+
+
+    <!--Empresa-->
+
+
+    <div class="fromResidente">
     <div class="title"><h3>Datos del Proyecto</h3></div>
 
       <table>
         <tr>
 
-          <td><div class="form-group">
-          {!!Form::label('Nombre del proyecto:')!!}
-          {!!Form::textArea('NombreProyecto',null,['class'=>'form-control input-sm','rows'=>'3','placeholder'=>'Titulo del proyecto'])!!}
-        </div>
+          <td>
         </td>
 
 
@@ -145,17 +326,17 @@
 
 
 
-</div>
-</div>
+    </div>
+    </div>
 
-</div>
+    </div>
 
-<div class="container">
-<div id="empresa" style='display:none'>
+    <div class="container">
+    <div id="empresa" style='display:none'>
 
-<!--Empresa-->
+    <!--Empresa-->
 
-   <div class="fromEmpresa" >
+    <div class="fromEmpresa" >
      <!-- <div class="title"><h3>Datos de la Empresa</h3></div>-->
      <div style='text-align: center;'>
        <table   WIDTH="700" align=""  border="0" cellspacing="0" cellpadding="0"> <!-- Lo cambiaremos por CSS -->
@@ -196,7 +377,7 @@
               <td></td>
               <td></td>
               <td></td>
-<!--Domicilio-->
+    <!--Domicilio-->
           <tr>
 
            <td align="left" >
@@ -253,7 +434,7 @@
           {!!Form::textArea('Mision',null,['class'=>'inputTexto','rows'=>'4','placeholder'=>'Mision de la empresa'])!!}
             </td>
            </tr>
-<!--Nombre del titular de la empresa-->
+    <!--Nombre del titular de la empresa-->
            <tr>
 
              <td align="left">
@@ -278,7 +459,7 @@
 
               </td>
            </tr>
-<!--Nombre del asesor externo-->
+    <!--Nombre del asesor externo-->
            <tr>
              <td  aling="center">
           {!!Form::label('Nombre del asesor externo:')!!}
@@ -334,28 +515,43 @@
            {!!Form::reset('Cancelar',['class'=>'Salir btn','data-dismiss'=>'modal'])!!}
 
            {!!Form::close()!!}
-</div>
+    </div>
 
 
 
-  </div>
-</div>
-</div>
+    </div>
+    </div>
+    </div>
 
 
 
-</div>
+    </div>
 
-   @if(count($errors)>0)
-<div class="errores alert alert-danger pull-left " id="errores">
-  <ul>
+    @if(count($errors)>0)
+    <div class="errores alert alert-danger pull-left " id="errores">
+    <ul>
     @foreach ($errors->all() as $error)
     <li>{{ $error }}</li>
     @endforeach
-  </ul>
+    </ul>
 
-</div>
+    </div>
 
 
-@endif
-@endsection
+    @endif
+
+
+
+
+
+
+    <script src="Myscripts\registroResidente.js" />
+    </script>
+
+
+
+
+    <!-- Scripts -->
+    <script src="{{ asset('js/app.js') }}"></script>
+</body>
+</html>
