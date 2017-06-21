@@ -26,10 +26,15 @@ class HomeController extends Controller
       if(auth()->user()->email == 'esnaiderivan@gmail.com')
         {
           return view ('registroResidente');
-        }
-          Auth()->logout();
+          
+        }else if(auth()->user()->email == 'oscar@gmail.com'){
+          return view('vista');
+      }else{
+           Auth()->logout();
             //Flash()->success("Mensaje de prueba");
           //Redireccionamos al inicio de la app con un mensaje
            return view('auth.login')->with("message", "Usuario no Registrado¡");
+      }
+         
     }//fin funcion index
 }
